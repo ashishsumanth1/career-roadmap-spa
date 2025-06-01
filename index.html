@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Data Science Career Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5DC;
+            color: #4A5568;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            display: block;
+            margin-top: 5px;
+            right: 0;
+            background: #2C7A7B;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after,
+        .nav-link.active:after {
+            width: 100%;
+            left: 0;
+            background: #2C7A7B;
+        }
+        .view-section {
+            display: none;
+        }
+        .view-section.active {
+            display: block;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 450px;
+            }
+        }
+        .checklist-item.completed label {
+            text-decoration: line-through;
+            color: #718096;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-[#2C7A7B]">
+                Career Roadmap
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#dashboard" class="nav-link text-gray-700 hover:text-[#2C7A7B] font-medium" data-target="dashboard">Dashboard</a>
+                <a href="#upskill" class="nav-link text-gray-700 hover:text-[#2C7A7B] font-medium" data-target="upskill">Upskill</a>
+                <a href="#portfolio" class="nav-link text-gray-700 hover:text-[#2C7A7B] font-medium" data-target="portfolio">Portfolio</a>
+                <a href="#brand" class="nav-link text-gray-700 hover:text-[#2C7A7B] font-medium" data-target="brand">Brand & Network</a>
+                <a href="#interview" class="nav-link text-gray-700 hover:text-[#2C7A7B] font-medium" data-target="interview">Interview</a>
+                <a href="#plan" class="nav-link text-gray-700 hover:text-[#2C7A7B] font-medium" data-target="plan">Action Plan</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#dashboard" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100 nav-link" data-target="dashboard">Dashboard</a>
+            <a href="#upskill" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100 nav-link" data-target="upskill">Upskill</a>
+            <a href="#portfolio" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100 nav-link" data-target="portfolio">Portfolio</a>
+            <a href="#brand" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100 nav-link" data-target="brand">Brand & Network</a>
+            <a href="#interview" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100 nav-link" data-target="interview">Interview</a>
+            <a href="#plan" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100 nav-link" data-target="plan">Action Plan</a>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section id="dashboard" class="view-section active min-h-screen container mx-auto p-6 lg:p-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">A Strategic Roadmap to Your Data Science Career</h1>
+            <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">This interactive guide translates your job search plan into an actionable, motivating journey. Your Master's degree is a powerful asset. Let's reactivate it with current skills and projects to land your ideal role.</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#2C7A7B]">
+                    <p class="text-5xl font-bold text-[#2C7A7B]">54%</p>
+                    <p class="mt-2 text-gray-600">of UK employers report struggling to find suitable candidates for entry-level digital economy roles.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#DD6B20]">
+                    <p class="text-5xl font-bold text-[#DD6B20]">+17%</p>
+                    <p class="mt-2 text-gray-600">Median advertised salary for AI Engineers in London compared to the UK average.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#2C7A7B]">
+                     <p class="text-5xl font-bold text-[#2C7A7B]">86%</p>
+                    <p class="mt-2 text-gray-600">of businesses indicate a preference for candidates with demonstrable practical experience.</p>
+                </div>
+            </div>
+
+            <div class="text-center mb-12">
+                <h2 class="text-2xl font-bold mb-6">Start Your Journey</h2>
+                 <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">The UK's tech sector remains a hub of opportunity, especially for skilled data professionals. This guide is structured to help you navigate it. Each section provides the tools and insights you need to progress. Begin by exploring the skills in demand, then move on to building your portfolio.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer nav-link" data-target="upskill">
+                    <span class="text-4xl">🎓</span>
+                    <h3 class="font-bold text-xl mt-4">Upskill & Strategise</h3>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer nav-link" data-target="portfolio">
+                    <span class="text-4xl">🛠️</span>
+                    <h3 class="font-bold text-xl mt-4">Build Portfolio</h3>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer nav-link" data-target="brand">
+                    <span class="text-4xl">🌐</span>
+                    <h3 class="font-bold text-xl mt-4">Brand & Network</h3>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer nav-link" data-target="interview">
+                    <span class="text-4xl">🤝</span>
+                    <h3 class="font-bold text-xl mt-4">Master Interviews</h3>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="upskill" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Phase 1: Upskill & Strategise</h1>
+            <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">To re-enter the market successfully, focus on acquiring the most in-demand skills. This section highlights the technical and soft skills employers are seeking in 2025 and helps you craft a personalised learning plan.</p>
+
+            <div class="bg-white p-6 rounded-xl shadow-lg mb-12">
+                <h2 class="text-2xl font-bold text-center mb-4">Top In-Demand Skills in UK Job Postings</h2>
+                <div class="chart-container">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+                <p class="text-sm text-center text-gray-500 mt-4">This chart visualizes the percentage of data scientist job postings that explicitly mention these core skill areas. Click on the cards below to explore each area in detail.</p>
+            </div>
+
+            <div id="skills-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+        </section>
+
+        <section id="portfolio" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Phase 2: Build Your Portfolio</h1>
+            <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">A strong portfolio is your most critical asset. It's tangible proof of your skills. Aim for 2-3 high-quality, end-to-end projects that demonstrate a range of abilities and link technical work to business value.</p>
+
+            <div id="projects-container" class="bg-white p-6 rounded-xl shadow-lg">
+            </div>
+
+        </section>
+
+        <section id="brand" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Phase 3: Brand & Network</h1>
+            <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">With new skills and projects, it's time to build your professional brand. A modern resume, an optimized LinkedIn profile, and active networking are key to uncovering opportunities in the hidden job market.</p>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div id="branding-container"></div>
+                <div id="networking-container"></div>
+            </div>
+        </section>
+
+        <section id="interview" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Phase 4: Interview & Secure</h1>
+            <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">Success in data science interviews comes from preparation. Be ready to tackle technical questions, articulate your experiences using the STAR method for behavioural questions, and think structurally through business case studies.</p>
+
+            <div id="interview-prep-container" class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+            </div>
+        </section>
+
+        <section id="plan" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Your 30-60-90 Day Action Plan</h1>
+            <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">This framework provides a structured approach to implement the recommendations over the next three months. Check off tasks as you complete them to track your progress.</p>
+
+            <div id="action-plan-container" class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto p-6 text-center">
+            <p>Data Science Career Roadmap | An Interactive Guide</p>
+            <p class="text-sm text-gray-400 mt-2">Built to empower your job search journey.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const mainContent = document.getElementById('main-content');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const viewSections = document.querySelectorAll('.view-section');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            const appData = {
+                skills: [
+                    { title: "Programming", icon: "💻", content: "Python (Pandas, NumPy, Scikit-learn), SQL. These are essential for data manipulation, analysis, and model building. Python is the industry standard.", resources: "Coursera, DataCamp, LeetCode (SQL)" },
+                    { title: "Machine Learning", icon: "🤖", content: "Supervised & Unsupervised Learning, Model Evaluation, Scikit-learn, XGBoost. This is the core of predictive analytics.", resources: "fast.ai, Andrew Ng's ML Course" },
+                    { title: "Deep Learning", icon: "🧠", content: "NLP, Computer Vision, TensorFlow, PyTorch. Powers advanced AI applications; NLP skills are in high demand.", resources: "PyTorch Docs, Hugging Face" },
+                    { title: "Cloud Computing", icon: "☁️", content: "AWS, Azure, or GCP. Critical for scalable solutions, data processing, and model deployment. ~20% of jobs require a certification.", resources: "AWS Certified Data Analytics, Azure DP-100" },
+                    { title: "Data Visualisation", icon: "📊", content: "Tableau, Power BI, Matplotlib, Seaborn. Enables effective communication of complex insights to diverse stakeholders.", resources: "Tableau Public, Power BI Docs" },
+                    { title: "MLOps", icon: "⚙️", content: "Docker, CI/CD, Model Monitoring. Increasingly vital for operationalizing AI and ensuring models deliver continuous value.", resources: "MLOps.community, Docker Docs" },
+                    { title: "Big Data Tech", icon: "🌊", content: "Hadoop, Spark. Necessary for handling and processing very large datasets efficiently.", resources: "Databricks Academy" },
+                    { title: "Soft Skills", icon: "💬", content: "Communication, Problem-Solving, Business Acumen. Crucial for translating technical work into business impact.", resources: "Toastmasters, Practice presenting projects" },
+                    { title: "AI Ethics", icon: "⚖️", content: "Fairness, Transparency, Model Interpretability. Essential for responsible AI development and deployment.", resources: "AI Ethics courses on edX/Coursera" }
+                ],
+                projects: [
+                    {
+                        title: "E-commerce Product Embedding with BERT & Cloud Deployment",
+                        description: "This project showcases cutting-edge NLP and MLOps skills. You'll use a powerful language model (BERT) to understand product descriptions and then deploy your model as a live service on a cloud platform.",
+                        details: {
+                            "Key Skills": "Python, NLP (BERT), TensorFlow/PyTorch, Cloud Platform (AWS/Azure/GCP).",
+                            "Datasets": "Kaggle Instacart dataset, Amazon product reviews.",
+                            "Business Angle": "Improve product recommendation accuracy, enhance search relevance, and deploy a scalable ML service that could directly impact sales.",
+                            "Structure": ["Problem: Improve product search.", "Data: Use text descriptions.", "EDA: Analyze text length, common words.", "Model: Fine-tune BERT for embeddings.", "Deploy: Create a REST API on AWS Lambda.", "Conclusion: Showcased end-to-end ML deployment."]
+                        }
+                    },
+                    {
+                        title: "Dynamic Airline Pricing Model & Interactive Dashboard",
+                        description: "Address a classic, high-impact business problem. This project involves time-series forecasting to predict flight demand and an interactive dashboard for stakeholders to explore pricing strategies.",
+                        details: {
+                            "Key Skills": "Forecasting (XGBoost, Prophet), Python, Pandas, Data Visualisation (Tableau/Power BI or Plotly Dash).",
+                            "Datasets": "Simulated airline booking data or publicly available flight data.",
+                            "Business Angle": "Optimize airline revenue by an estimated Y% per flight, improve seat occupancy rates, and provide a dashboard for real-time strategy adjustments.",
+                            "Structure": ["Problem: Maximize revenue per flight.", "Data: Time-series of bookings.", "Model: Use XGBoost to forecast future demand.", "Visualization: Build a Tableau dashboard showing price recommendations.", "Conclusion: Demonstrated ability to solve a core business problem with ML."]
+                        }
+                    },
+                    {
+                        title: "Analysis of UK Tech Job Market Trends",
+                        description: "A highly relevant project that demonstrates a multitude of skills while providing personal career insights. Scrape job sites, analyze the data, and visualize your findings.",
+                        details: {
+                           "Key Skills": "Web Scraping (BeautifulSoup), Python, Pandas, EDA, Data Visualisation (Plotly), NLP.",
+                            "Datasets": "Data scraped from UK job boards like LinkedIn, Indeed, Reed.co.uk.",
+                            "Business Angle": "Identify key skills in demand for data science roles in London, visualize salary distributions, and uncover regional hiring hotspots. This 'product' can help other job seekers.",
+                            "Structure": ["Problem: What skills are in demand?", "Data: Scrape job postings.", "EDA: Analyze skill frequency, salary ranges.", "NLP: Topic model job descriptions.", "Dashboard: Create an interactive map and charts in Plotly Dash.", "Conclusion: Provided actionable insights for UK tech job seekers."]
+                        }
+                    }
+                ],
+                branding: {
+                    title: "Your Resume & LinkedIn",
+                    intro: "Your resume and LinkedIn profile are your digital storefront. They must be modern, targeted, and optimized to be found by recruiters and pass through Applicant Tracking Systems (ATS).",
+                    items: [
+                        { text: "Keep resume to 1 page, 2 pages max.", completed: false },
+                        { text: "Include links to your LinkedIn and GitHub.", completed: false },
+                        { text: "Write a powerful 2-4 sentence summary tailored to the role.", completed: false },
+                        { text: "Prioritize a detailed 'Projects' section over experience (if limited).", completed: false },
+                        { text: "Create a categorized skills section with keywords from job descriptions.", completed: false },
+                        { text: "Use strong action verbs (e.g., Developed, Analyzed, Optimized).", completed: false },
+                        { text: "Quantify every possible achievement (e.g., 'Improved accuracy by 15%').", completed: false },
+                        { text: "Craft a compelling LinkedIn headline and 'About' section with keywords.", completed: false },
+                        { text: "Request recommendations from professors or collaborators.", completed: false },
+                        { text: "Engage on LinkedIn: share projects, comment on posts weekly.", completed: false }
+                    ]
+                },
+                networking: {
+                    title: "Networking & The Hidden Market",
+                    intro: "Up to 80% of jobs are never advertised. Networking is the key to unlocking this hidden market. London's vibrant tech scene offers countless opportunities to connect.",
+                    items: [
+                        { name: "PyData London Meetup", type: "Meetup", members: "15,000+", link: "#" },
+                        { name: "London Machine Learning Meetup", type: "Meetup", members: "12,000+", link: "#" },
+                        { name: "Data Science Festival", type: "Event", members: "13,000+", link: "#" },
+                        { name: "The AI Summit London", type: "Conference", members: "Industry-wide", link: "#" },
+                        { name: "Gradcracker", type: "Job Board", members: "STEM Graduates", link: "#" },
+                        { name: "Harnham", type: "Recruiter", members: "Data & Analytics", link: "#" },
+                    ]
+                },
+                interviewPrep: [
+                    {
+                        title: "Technical Questions",
+                        icon: "⚙️",
+                        content: "Evaluates core proficiency. Expect live coding and concept explanations.",
+                        points: [
+                            "<strong>Python:</strong> Data structures, Pandas (grouping, merging), NumPy.",
+                            "<strong>SQL:</strong> Advanced JOINs, window functions, subqueries.",
+                            "<strong>Statistics:</strong> Hypothesis testing, p-values, probability distributions.",
+                            "<strong>ML Theory:</strong> Bias-variance tradeoff, overfitting, pros/cons of algorithms."
+                        ]
+                    },
+                    {
+                        title: "Behavioural Questions (STAR)",
+                        icon: "⭐",
+                        content: "Assesses soft skills and culture fit. Structure answers with the STAR method.",
+                        points: [
+                            "<strong>Situation:</strong> Set the scene. (e.g., 'In my final Master's project...')",
+                            "<strong>Task:</strong> Describe your objective. ('My goal was to...')",
+                            "<strong>Action:</strong> Detail what YOU did. ('I analyzed the data by...')",
+                            "<strong>Result:</strong> Quantify the outcome. ('This led to a 10% improvement...')"
+                        ]
+                    },
+                    {
+                        title: "Case Studies",
+                        icon: "📈",
+                        content: "Tests problem-solving and business acumen. Focus on a structured approach.",
+                        points: [
+                            "<strong>1. Clarify:</strong> Understand the business goal. Ask questions.",
+                            "<strong>2. Structure:</strong> Outline your analytical workflow.",
+                            "<strong>3. Hypothesize:</strong> Formulate potential reasons for the issue.",
+                            "<strong>4. Conclude:</strong> Summarize findings and link to business impact."
+                        ]
+                    }
+                ],
+                actionPlan: [
+                    {
+                        title: "Days 1-30: Foundation",
+                        tasks: [
+                            { text: "Conduct a detailed skills audit against the 'Upskill' section.", completed: false },
+                            { text: "Enroll in 1-2 courses for identified gaps (e.g., AWS, NLP).", completed: false },
+                            { text: "Draft new resume & overhaul LinkedIn profile.", completed: false },
+                            { text: "Select and start your first portfolio project.", completed: false }
+                        ]
+                    },
+                    {
+                        title: "Days 31-60: Build & Engage",
+                        tasks: [
+                            { text: "Complete and document first portfolio project on GitHub.", completed: false },
+                            { text: "Start second, more advanced portfolio project.", completed: false },
+                            { text: "Begin applying for 2-3 targeted roles per week.", completed: false },
+                            { text: "Attend at least one networking event (virtual or in-person).", completed: false }
+                        ]
+                    },
+                    {
+                        title: "Days 61-90: Accelerate",
+                        tasks: [
+                            { text: "Complete second portfolio project.", completed: false },
+                            { text: "Intensify job applications to 5+ per week.", completed: false },
+                            { text: "Practice coding challenges and review ML theory daily.", completed: false },
+                            { text: "Conduct mock interviews with peers or mentors.", completed: false }
+                        ]
+                    }
+                ]
+            };
+
+            function showView(targetId) {
+                viewSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    window.scrollTo(0, 0);
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if(link.dataset.target === targetId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.dataset.target;
+                    showView(targetId);
+                    if (mobileMenu.classList.contains('block')) {
+                       mobileMenu.classList.remove('block');
+                       mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('block');
+            });
+
+            function createSkillsChart() {
+                const ctx = document.getElementById('skillsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Python', 'SQL', 'Machine Learning', 'Cloud', 'Visualisation', 'MLOps'],
+                        datasets: [{
+                            label: '% of Job Postings Mentioning Skill',
+                            data: [78, 65, 69, 20, 55, 30],
+                            backgroundColor: 'rgba(44, 122, 123, 0.6)',
+                            borderColor: 'rgba(44, 122, 123, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0,0,0,0.05)'
+                                }
+                            },
+                             y: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderSkills() {
+                const container = document.getElementById('skills-grid');
+                let html = '';
+                appData.skills.forEach(skill => {
+                    html += `
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="p-6 cursor-pointer accordion-trigger flex justify-between items-center">
+                                <div>
+                                    <span class="text-3xl mr-4">${skill.icon}</span>
+                                    <span class="font-bold text-lg">${skill.title}</span>
+                                </div>
+                                <span class="transform transition-transform text-2xl text-[#2C7A7B]">+</span>
+                            </div>
+                            <div class="accordion-content bg-gray-50">
+                                <p class="px-6 py-4 text-gray-600">${skill.content}</p>
+                                <div class="px-6 py-4 bg-teal-50 border-t">
+                                    <h4 class="font-semibold text-sm text-[#2C7A7B]">Key Resources:</h4>
+                                    <p class="text-sm text-gray-600">${skill.resources}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+
+            function renderProjects() {
+                const container = document.getElementById('projects-container');
+                let tabsHtml = '<div class="flex border-b mb-6">';
+                let contentHtml = '';
+
+                appData.projects.forEach((project, index) => {
+                    const isActive = index === 0;
+                    tabsHtml += `<button class="project-tab ${isActive ? 'border-b-2 border-[#2C7A7B] text-[#2C7A7B]' : 'text-gray-500'} py-2 px-4 font-medium focus:outline-none" data-target="project-${index}">${project.title.split(' ')[0]}</button>`;
+                    contentHtml += `
+                        <div id="project-${index}" class="project-content ${isActive ? '' : 'hidden'}">
+                            <h2 class="text-2xl font-bold mb-2">${project.title}</h2>
+                            <p class="text-gray-600 mb-6">${project.description}</p>
+                            <div class="grid md:grid-cols-3 gap-4 mb-6 text-center">
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <h4 class="font-semibold">Key Skills</h4>
+                                    <p class="text-sm">${project.details["Key Skills"]}</p>
+                                </div>
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <h4 class="font-semibold">Datasets/Tools</h4>
+                                    <p class="text-sm">${project.details.Datasets}</p>
+                                </div>
+                                 <div class="bg-gray-100 p-4 rounded-lg">
+                                    <h4 class="font-semibold">Business Angle</h4>
+                                    <p class="text-sm">${project.details["Business Angle"]}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg mb-2">Project Structure</h3>
+                                <div class="space-y-2">
+                                    ${project.details.Structure.map(step => `
+                                        <div class="border rounded p-3 text-sm bg-white">${step}</div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                tabsHtml += '</div>';
+                container.innerHTML = tabsHtml + contentHtml;
+            }
+
+            function renderBrandingAndNetworking() {
+                const brandingContainer = document.getElementById('branding-container');
+                const networkingContainer = document.getElementById('networking-container');
+
+                let brandingHtml = `<div class="bg-white p-6 rounded-xl shadow-lg h-full">
+                    <h2 class="text-2xl font-bold mb-2">${appData.branding.title}</h2>
+                    <p class="text-gray-600 mb-6">${appData.branding.intro}</p>
+                    <ul class="space-y-3">`;
+                appData.branding.items.forEach((item, index) => {
+                    brandingHtml += `<li class="checklist-item flex items-center">
+                        <input type="checkbox" id="brand-item-${index}" class="h-4 w-4 text-[#2C7A7B] border-gray-300 rounded focus:ring-[#2C7A7B]">
+                        <label for="brand-item-${index}" class="ml-3 text-gray-700">${item.text}</label>
+                    </li>`;
+                });
+                brandingHtml += `</ul></div>`;
+                brandingContainer.innerHTML = brandingHtml;
+
+                let networkingHtml = `<div class="bg-white p-6 rounded-xl shadow-lg h-full">
+                    <h2 class="text-2xl font-bold mb-2">${appData.networking.title}</h2>
+                    <p class="text-gray-600 mb-6">${appData.networking.intro}</p>
+                    <div class="grid grid-cols-2 gap-4">`;
+                appData.networking.items.forEach(item => {
+                    networkingHtml += `<div class="bg-gray-50 border border-gray-200 p-4 rounded-lg text-center">
+                        <h4 class="font-bold">${item.name}</h4>
+                        <p class="text-sm text-gray-500">${item.type}</p>
+                        <p class="text-xs text-[#2C7A7B] font-semibold">${item.members} members</p>
+                    </div>`;
+                });
+                networkingHtml += `</div></div>`;
+                networkingContainer.innerHTML = networkingHtml;
+            }
+
+            function renderInterviewPrep() {
+                const container = document.getElementById('interview-prep-container');
+                let html = '';
+                appData.interviewPrep.forEach(section => {
+                    html += `<div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="p-6 cursor-pointer accordion-trigger">
+                            <div class="flex items-center mb-2">
+                               <span class="text-3xl mr-4">${section.icon}</span>
+                               <h3 class="font-bold text-xl">${section.title}</h3>
+                            </div>
+                            <p class="text-sm text-gray-600">${section.content}</p>
+                        </div>
+                        <div class="accordion-content bg-gray-50 px-6 py-4 border-t">
+                            <ul class="space-y-2 list-disc list-inside text-gray-700">
+                                ${section.points.map(point => `<li>${point}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>`;
+                });
+                container.innerHTML = html;
+            }
+
+            function renderActionPlan() {
+                const container = document.getElementById('action-plan-container');
+                let html = '';
+                appData.actionPlan.forEach(phase => {
+                    html += `<div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="font-bold text-xl mb-4 border-b-2 border-[#2C7A7B] pb-2">${phase.title}</h3>
+                        <ul class="space-y-3">`;
+                    phase.tasks.forEach((task, index) => {
+                         html += `<li class="checklist-item flex items-start">
+                            <input type="checkbox" id="plan-item-${phase.title}-${index}" class="mt-1 h-4 w-4 text-[#2C7A7B] border-gray-300 rounded focus:ring-[#2C7A7B]">
+                            <label for="plan-item-${phase.title}-${index}" class="ml-3 text-gray-700">${task.text}</label>
+                        </li>`;
+                    });
+                    html += `</ul></div>`;
+                });
+                container.innerHTML = html;
+            }
+
+            mainContent.addEventListener('click', function(e) {
+                if (e.target.closest('.accordion-trigger')) {
+                    const trigger = e.target.closest('.accordion-trigger');
+                    const content = trigger.nextElementSibling;
+                    const icon = trigger.querySelector('.transform');
+                    content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+                    if(icon) icon.classList.toggle('rotate-45');
+                }
+                if (e.target.classList.contains('project-tab')) {
+                    document.querySelectorAll('.project-tab').forEach(tab => {
+                        tab.classList.remove('border-b-2', 'border-[#2C7A7B]', 'text-[#2C7A7B]');
+                        tab.classList.add('text-gray-500');
+                    });
+                    e.target.classList.add('border-b-2', 'border-[#2C7A7B]', 'text-[#2C7A7B]');
+                    e.target.classList.remove('text-gray-500');
+
+                    document.querySelectorAll('.project-content').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(e.target.dataset.target).classList.remove('hidden');
+                }
+                if(e.target.matches('.checklist-item input[type="checkbox"]')){
+                    e.target.closest('.checklist-item').classList.toggle('completed');
+                }
+            });
+
+            function init() {
+                showView('dashboard');
+                createSkillsChart();
+                renderSkills();
+                renderProjects();
+                renderBrandingAndNetworking();
+                renderInterviewPrep();
+                renderActionPlan();
+            }
+
+            init();
+        });
+    </script>
+</body>
+</html>
