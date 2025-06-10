@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -35,12 +36,6 @@
             width: 100%;
             left: 0;
             background: #2C7A7B;
-        }
-        .view-section {
-            display: none;
-        }
-        .view-section.active {
-            display: block;
         }
         .accordion-content {
             max-height: 0;
@@ -99,7 +94,7 @@
     </header>
 
     <main id="main-content">
-        <section id="dashboard" class="view-section active min-h-screen container mx-auto p-6 lg:p-12">
+        <section id="dashboard" class="view-section transition-opacity duration-500 active opacity-100 min-h-screen container mx-auto p-6 lg:p-12">
             <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">A Strategic Roadmap to Your Data Science Career</h1>
             <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">This interactive guide translates your job search plan into an actionable, motivating journey. Your Master's degree is a powerful asset. Let's reactivate it with current skills and projects to land your ideal role.</p>
 
@@ -144,7 +139,7 @@
 
         </section>
 
-        <section id="upskill" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+        <section id="upskill" class="view-section transition-opacity duration-500 min-h-screen container mx-auto p-6 lg:p-12">
             <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Phase 1: Upskill & Strategise</h1>
             <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">To re-enter the market successfully, focus on acquiring the most in-demand skills. This section highlights the technical and soft skills employers are seeking in 2025 and helps you craft a personalised learning plan.</p>
 
@@ -160,7 +155,7 @@
             </div>
         </section>
 
-        <section id="portfolio" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+        <section id="portfolio" class="view-section transition-opacity duration-500 min-h-screen container mx-auto p-6 lg:p-12">
             <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Phase 2: Build Your Portfolio</h1>
             <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">A strong portfolio is your most critical asset. It's tangible proof of your skills. Aim for 2-3 high-quality, end-to-end projects that demonstrate a range of abilities and link technical work to business value.</p>
 
@@ -169,7 +164,7 @@
 
         </section>
 
-        <section id="brand" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+        <section id="brand" class="view-section transition-opacity duration-500 min-h-screen container mx-auto p-6 lg:p-12">
             <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Phase 3: Brand & Network</h1>
             <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">With new skills and projects, it's time to build your professional brand. A modern resume, an optimized LinkedIn profile, and active networking are key to uncovering opportunities in the hidden job market.</p>
 
@@ -179,7 +174,7 @@
             </div>
         </section>
 
-        <section id="interview" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+        <section id="interview" class="view-section transition-opacity duration-500 min-h-screen container mx-auto p-6 lg:p-12">
             <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Phase 4: Interview & Secure</h1>
             <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">Success in data science interviews comes from preparation. Be ready to tackle technical questions, articulate your experiences using the STAR method for behavioural questions, and think structurally through business case studies.</p>
 
@@ -187,7 +182,7 @@
             </div>
         </section>
 
-        <section id="plan" class="view-section min-h-screen container mx-auto p-6 lg:p-12">
+        <section id="plan" class="view-section transition-opacity duration-500 min-h-screen container mx-auto p-6 lg:p-12">
             <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Your 30-60-90 Day Action Plan</h1>
             <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">This framework provides a structured approach to implement the recommendations over the next three months. Check off tasks as you complete them to track your progress.</p>
 
@@ -352,14 +347,25 @@
             };
 
             function showView(targetId) {
-                viewSections.forEach(section => {
-                    section.classList.remove('active');
-                });
+                const current = document.querySelector('.view-section.active');
                 const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                    window.scrollTo(0, 0);
+
+                if (!targetSection || current === targetSection) return;
+
+                if (current) {
+                    current.classList.remove('opacity-100');
+                    current.classList.add('opacity-0');
+                    setTimeout(() => {
+                        current.classList.remove('active');
+                    }, 500);
                 }
+
+                targetSection.classList.add('active', 'opacity-0');
+                requestAnimationFrame(() => {
+                    targetSection.classList.remove('opacity-0');
+                    targetSection.classList.add('opacity-100');
+                });
+                window.scrollTo(0, 0);
 
                 navLinks.forEach(link => {
                     link.classList.remove('active');
